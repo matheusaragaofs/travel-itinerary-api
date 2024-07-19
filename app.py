@@ -10,10 +10,8 @@ load_dotenv()
 
 @app.route("/create-itinerary", methods=["POST"])
 def home():
-    # Modelo
     llm = get_model("openai")
 
-    # Dados de entrada
     data = request.json
 
     destinos_interesse = data.get("destinos_interesse")
@@ -23,7 +21,6 @@ def home():
     orcamento_disponivel = data.get("orcamento_disponivel")
     necessidades_especiais = data.get("necessidades_especiais")
 
-    # Chamada da função
     try:
         json_rota = criar_rota_viagem(
             llm,
@@ -35,9 +32,13 @@ def home():
             orcamento_disponivel,
             necessidades_especiais,
         )
-    except:
+    except Exception as e:
         return jsonify(
-            {"status": "error", "message": "Invalid response from criar_rota_viagem"}
+            {
+                "status": "error",
+                "message": "Invalid response from criar_rota_viagem",
+                "error": str(e),
+            }
         )
 
     response_data = {**json_rota, "status": "success"}
