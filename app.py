@@ -1,23 +1,25 @@
 from dotenv import load_dotenv
-from flask import Flask, json, jsonify
+from flask import Flask, request, json, jsonify
 from services.travel_route import criar_rota_viagem
 from templates.prompt_template import prompt_template
 from models.llm_models import get_model
 
 app = Flask(__name__)
 load_dotenv()
-@app.route('/', methods=['GET'])
+@app.route('/create-itinerary', methods=['POST'])
 def home():
     # Modelo
     llm = get_model("openai")
-
+    
     # Dados de entrada
-    destinos_interesse = "Rio de Janeiro"
-    recomendacao_hospedagem = "Hotel"
-    data_inicio = "04 de julho a 06 de julho"
-    preferencias_atividades = "Museus, gastronomia local, passeios a pé"
-    orcamento_disponivel = "até 5 mil reais"
-    necessidades_especiais = "Sem necessidade especial"
+    data = request.json
+    
+    destinos_interesse = data.get('destinos_interesse')
+    recomendacao_hospedagem = data.get('recomendacao_hospedagem')
+    data_inicio = data.get('data_inicio')
+    preferencias_atividades = data.get('preferencias_atividades')
+    orcamento_disponivel = data.get('orcamento_disponivel')
+    necessidades_especiais = data.get('necessidades_especiais')
 
     # Chamada da função
     try:
