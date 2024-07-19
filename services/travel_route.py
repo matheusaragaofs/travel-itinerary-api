@@ -1,6 +1,6 @@
 import json
 from langchain.chains import LLMChain
-from services.validation import verificar_json
+from .validation import verificar_json
 
 def criar_rota_viagem(llm, prompt_template, destinos_interesse, recomendacao_hospedagem, data_inicio, preferencias_atividades, orcamento_disponivel, necessidades_especiais):
     while True:
