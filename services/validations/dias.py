@@ -1,5 +1,6 @@
 from .atividade import verificar_atividade
 
+
 def verificar_dias(dias):
     if not dias:
         return False, "Falta a chave 'dias' no roteiro."

@@ -2,7 +2,17 @@ import json
 from langchain.chains import LLMChain
 from .validation import verificar_json
 
-def criar_rota_viagem(llm, prompt_template, destinos_interesse, recomendacao_hospedagem, data_inicio, preferencias_atividades, orcamento_disponivel, necessidades_especiais):
+
+def criar_rota_viagem(
+    llm,
+    prompt_template,
+    destinos_interesse,
+    recomendacao_hospedagem,
+    data_inicio,
+    preferencias_atividades,
+    orcamento_disponivel,
+    necessidades_especiais,
+):
     while True:
         chain = LLMChain(llm=llm, prompt=prompt_template)
         dados_viagem = {
@@ -11,7 +21,7 @@ def criar_rota_viagem(llm, prompt_template, destinos_interesse, recomendacao_hos
             "data_inicio": data_inicio,
             "preferencias_atividades": preferencias_atividades,
             "orcamento_disponivel": orcamento_disponivel,
-            "necessidades_especiais": necessidades_especiais
+            "necessidades_especiais": necessidades_especiais,
         }
 
         response = chain.run(dados_viagem)

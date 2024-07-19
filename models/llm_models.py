@@ -5,8 +5,9 @@ import os
 
 load_dotenv()
 
+
 def get_model(api_choice):
-    OPEN_API_KEY = os.environ['OPENAI_API_KEY']
+    OPEN_API_KEY = os.environ["OPENAI_API_KEY"]
     if api_choice.lower() == "openai":
         return ChatOpenAI(model_name="gpt-4o", api_key=OPEN_API_KEY)
     elif api_choice.lower() == "gemini":

@@ -3,9 +3,10 @@ from services.travel_route import criar_rota_viagem
 from templates.prompt_template import prompt_template
 from models.llm_models import get_model
 
-home_route = Blueprint('home_route', __name__)
+home_route = Blueprint("home_route", __name__)
 
-@home_route.route('/', methods=['GET'])
+
+@home_route.route("/", methods=["GET"])
 def home():
     # Modelo
     llm = get_model("openai")
@@ -19,10 +20,16 @@ def home():
     necessidades_especiais = "Sem necessidade especial"
 
     # Chamada da função
-    json_rota = criar_rota_viagem(llm, prompt_template, destinos_interesse, recomendacao_hospedagem, data_inicio, preferencias_atividades, orcamento_disponivel, necessidades_especiais)
+    json_rota = criar_rota_viagem(
+        llm,
+        prompt_template,
+        destinos_interesse,
+        recomendacao_hospedagem,
+        data_inicio,
+        preferencias_atividades,
+        orcamento_disponivel,
+        necessidades_especiais,
+    )
 
-    response_data = {
-        **json_rota,
-        "status": "success"
-    }
+    response_data = {**json_rota, "status": "success"}
     return jsonify(response_data)

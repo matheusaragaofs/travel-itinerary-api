@@ -1,7 +1,15 @@
 from .common import verificar_chaves, verificar_float, verificar_moeda
 
+
 def verificar_hospedagem(hospedagem):
-    chaves_necessarias = ["nome", "localizacao", "latitude", "longitude", "preco_medio", "comodidades"]
+    chaves_necessarias = [
+        "nome",
+        "localizacao",
+        "latitude",
+        "longitude",
+        "preco_medio",
+        "comodidades",
+    ]
     valido, msg = verificar_chaves(hospedagem, chaves_necessarias, "hospedagem")
     if not valido:
         return False, msg
