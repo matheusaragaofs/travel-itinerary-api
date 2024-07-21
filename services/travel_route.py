@@ -1,33 +1,31 @@
 import json
 from langchain.chains import LLMChain
-from .validation import verificar_json
+from templates.expected_json_schema import expected_json_schema
 
 
-def criar_rota_viagem(
+class InvalidResponseError(Exception):
+    pass
+
+
+def generate_itinerary(
     llm,
     prompt_template,
-    destinos_interesse,
-    recomendacao_hospedagem,
-    data_inicio,
-    preferencias_atividades,
-    orcamento_disponivel,
-    necessidades_especiais,
+    destination,
+    travel_period,
+    preffered_travel_styles,
+    budget,
 ):
     while True:
         chain = LLMChain(llm=llm, prompt=prompt_template)
-        dados_viagem = {
-            "destinos_interesse": destinos_interesse,
-            "recomendacao_hospedagem": recomendacao_hospedagem,
-            "data_inicio": data_inicio,
-            "preferencias_atividades": preferencias_atividades,
-            "orcamento_disponivel": orcamento_disponivel,
-            "necessidades_especiais": necessidades_especiais,
+        travel_data = {
+            "destination": destination,
+            "travel_period": travel_period,
+            "preffered_travel_styles": preffered_travel_styles,
+            "budget": budget,
+            "expected_json_schema": expected_json_schema,
         }
+        response = chain.run(travel_data)
+        cleaned_string = response.replace("```json", "").replace("```", "")
 
-        response = chain.run(dados_viagem)
-        resultado, mensagem = verificar_json(json.loads(response))
-
-        if resultado:
-            return json.loads(response)
-        else:
-            return json.loads(response)
+        parsed_json = json.loads(cleaned_string)
+        return parsed_json
