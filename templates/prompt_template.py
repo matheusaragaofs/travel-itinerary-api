@@ -26,6 +26,8 @@ prompt_template = PromptTemplate(
         based on the preffered travel styles: {preffered_travel_styles};
         Make sure activities at close times are relatively close together;
         Make sure to fill in all required fields with appropriate data.
+        Make sure if the address has "R. " in it, it is replaced with "Rua " and if it has "Av. " in it, it is replaced with "Avenida ", and it doesnt need
+        the zipcode in the address and the format should be "street_name, number, neighborhood, city - state".
 
     """
     ),

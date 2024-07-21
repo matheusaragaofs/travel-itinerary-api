@@ -1,33 +1,34 @@
-day_template = """
-{
-    "date_day": "string",
-    "morning": {
+activity_template = """
+    {
         "activity": "string",
-        "location": "string",
+        "address": "string",
         "latitude": "string",
         "longitude": "string",
         "time": "string",
-        "cost": "string"
-    },
-    "afternoon": {
-        "activity": "string",
-        "location": "string",
-        "latitude": "string",
-        "longitude": "string",
-        "time": "string",
-        "cost": "string"
-    },
-    "night": {
-        "activity": "string",
-        "location": "string",
-        "latitude": "string",
-        "longitude": "string",
-        "time": "string",
-        "cost": "string"
+        "average_cost": "string"
     }
-}
 """
 
+recomendation_template = """
+    {
+        "name": "string",
+        "address": "string",
+        "latitude": "string",
+        "longitude": "string",
+        "average_cost": "string",
+        "type": "string"
+    }
+"""
+
+
+day_template = f"""
+    {{
+        "date_day": "string",
+        "morning": {activity_template},
+        "afternoon": {activity_template},
+        "night": {activity_template}
+    }}
+"""
 
 expected_json_schema = f"""
 {{
@@ -47,32 +48,9 @@ expected_json_schema = f"""
         "friday": {day_template},
         "saturday": {day_template},
     }},
-    "recommended_accommodations": [
-        {{
-            "name": "string",
-            "location": "string",
-            "latitude": "string",
-            "longitude": "string",
-            "average_price": "string",
-        }}
-    ],
-    "recommended_restaurants": [
-        {{
-            "name": "string",
-            "location": "string",
-            "latitude": "string",
-            "longitude": "string",
-            "average_price": "string",
-            "restaurant_type": "string"
-        }}
-    ],
-    "extra_activities_based_on_preffered_travel_styles": [
-        {{
-            "name": "string",
-            "description": "string",
-            "cost": "string"
-        }}
-    ]
+    "recommended_accommodations": [ {recomendation_template} ],
+    "recommended_restaurants": [ {recomendation_template} ],
+    "extra_activities_based_on_preffered_travel_styles": [ {activity_template} ]
    
 }}
 """

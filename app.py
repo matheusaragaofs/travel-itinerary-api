@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
-from services.travel_route import generate_itinerary
+from services.generate_itinerary import generate_itinerary
 from templates.prompt_template import prompt_template
 from models.llm_models import get_model
 

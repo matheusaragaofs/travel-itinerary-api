@@ -1,6 +1,7 @@
 import json
 from langchain.chains import LLMChain
 from templates.expected_json_schema import expected_json_schema
+from services.update_lat_long_by_adresses import update_lat_long_by_addresses
 
 
 class InvalidResponseError(Exception):
@@ -24,8 +25,11 @@ def generate_itinerary(
             "budget": budget,
             "expected_json_schema": expected_json_schema,
         }
+
         response = chain.run(travel_data)
         cleaned_string = response.replace("```json", "").replace("```", "")
 
-        parsed_json = json.loads(cleaned_string)
+        # parsed_json = (json.loads(cleaned_string))
+        parsed_json = update_lat_long_by_addresses(json.loads(cleaned_string))
+
         return parsed_json
