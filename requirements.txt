@@ -1,8 +1,0 @@
-flask
-langchain
-openai
-langchain_community
-langchain-google-genai
-langchain-openai
-python-dotenv
-geopy
