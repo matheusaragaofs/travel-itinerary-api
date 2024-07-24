@@ -6,6 +6,7 @@ import { Atividade, Periodo, Dia, Hospedagem, Orcamento, DicasObservacoes, Rotei
 
 const googleMapsClient = new Client({});
 
+// Funcao para pegar todos os locais dos roteiros
 const getLocaisFromDia = (dia: Dia): string[] => {
   const locais: string[] = [];
   const periodos: Periodo[] = ['manha', 'tarde', 'noite'];
@@ -22,6 +23,7 @@ const getLocaisFromDia = (dia: Dia): string[] => {
   return locais;
 };
 
+// Funcao para gerar o roteiro, fazendo a requisiao para a openAI
 async function generateRoteiro(prompt: string, apiKey: string): Promise<string> {
   const openai = new OpenAI({ apiKey });
 
@@ -45,6 +47,7 @@ async function generateRoteiro(prompt: string, apiKey: string): Promise<string> 
   }
 }
 
+// Funcao POST que o front realiza a reuqisição, ela é a "main"
 export async function POST(request: Request): Promise<NextResponse> {
   const {
     destinos_interesse,
